@@ -1,0 +1,6 @@
+pandas==1.5.3
+numpy==1.24.4
+yfinance==0.2.33
+multitasking==0.0.11
+pymongo==4.6.1
+python-dotenv==1.0.1
