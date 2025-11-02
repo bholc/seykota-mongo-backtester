@@ -14,7 +14,7 @@ load_dotenv()
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
 DB_NAME = os.getenv("DB_NAME", "marketdata")
 
-# -------------------- helpers --------------------
+#  helpers 
 
 def get_db():
     return MongoClient(MONGODB_URI)[DB_NAME]
@@ -25,7 +25,7 @@ def latest_portfolio_run(db, engine: str = "sey_portfolio_ema") -> Tuple[str, Di
         raise RuntimeError(f"No runs found for engine={engine}")
     return doc["run_id"], doc
 
-# -------------------- aggregation pipelines --------------------
+#aggregation pipelines 
 
 def equity_cagr_maxdd(db, run_id: str) -> Dict[str, Any]:
     """
@@ -255,7 +255,7 @@ def materialize_trades_summary(db, run_id: str, into_collection: str = "reports_
     list(db.trades.aggregate(pipe))
     return db[into_collection].count_documents({"run_id": run_id})
 
-# -------------------- CLI entry --------------------
+# CLI entry 
 
 if __name__ == "__main__":
     import argparse
