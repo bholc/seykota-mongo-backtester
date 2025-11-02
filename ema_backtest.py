@@ -60,10 +60,6 @@ def sey_position_size(equity: float, heat: float, atr_val: float, atr_mult: floa
 
 # Backtest 
 def backtest_single(symbol: str, use_adj_close: bool = False, start: str = "1990-01-01") -> pd.DataFrame:
-    """
-    Returns a blotter DataFrame indexed by timestamp with columns:
-      event ∈ {BUY, SELL, MTM}, px, pnl, equity
-    """
     df = load_bars(symbol, start=start, use_adj_close=use_adj_close)
     if df.empty:
         raise SystemExit(f"No data for {symbol}. Did you ingest it?")
