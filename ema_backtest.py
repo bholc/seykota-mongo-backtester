@@ -62,7 +62,7 @@ def sey_position_size(equity: float, heat: float, atr_val: float, atr_mult: floa
 def backtest_single(symbol: str, use_adj_close: bool = False, start: str = "1990-01-01") -> pd.DataFrame:
     df = load_bars(symbol, start=start, use_adj_close=use_adj_close)
     if df.empty:
-        raise SystemExit(f"No data for {symbol}. Did you ingest it?")
+        raise SystemExit(f"No data for {symbol}. Did you import it?")
 
     for c in ["open", "high", "low", "px"]:
         if c not in df.columns:
