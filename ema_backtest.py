@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ema_backtest.py — Seykota-style EMA(15/150) + ATR(20), heat sizing, with Mongo persistence
+# ema_backtest.py — Seykota-style EMA(15/150) + ATR(20), heat sizing, with MongoDB persistence
 
 import numpy as np
 import pandas as pd
