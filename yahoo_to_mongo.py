@@ -41,7 +41,7 @@ def _normalize(df: pd.DataFrame, symbol: str, source: str) -> pd.DataFrame:
     # Ensure UTC midnight timestamps
     df["date"] = pd.to_datetime(df["date"]).dt.tz_localize(None).dt.tz_localize(timezone.utc)
 
-    # If provider lacks adj_close (e.g., stooq), create a placeholder = close
+    # If provider lacks adj_close, create a placeholder = close
     if "adj_close" not in df.columns and "close" in df.columns:
         df["adj_close"] = df["close"]
 
@@ -55,7 +55,7 @@ def _normalize(df: pd.DataFrame, symbol: str, source: str) -> pd.DataFrame:
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce")
 
-    # Keep only what we need
+    # Keep what is needed
     cols = ["date","symbol","open","high","low","close","adj_close","volume","source","tz"]
     df = df[[c for c in cols if c in df.columns]]
     df = df.dropna(subset=["open","high","low","close"])
@@ -71,7 +71,7 @@ def fetch_yahoo(symbol: str, start: Optional[str], end: Optional[str]) -> pd.Dat
     return _normalize(df, symbol, source="yahoo")
 
 def fetch_stooq(symbol: str, start: Optional[str], end: Optional[str]) -> pd.DataFrame:
-    # Stooq returns descending index; we’ll sort ascending.
+    # Sort ascending instead of Stooq default descending
     df = web.DataReader(symbol, "stooq", start=start, end=end)
     if df is None or df.empty:
         return pd.DataFrame()
